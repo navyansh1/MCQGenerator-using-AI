@@ -7,7 +7,7 @@ import google.generativeai as genai
 from fpdf import FPDF  # pip install fpdf
 
 # Set your API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyC457nwO9tK8p1xkzdt3-5OCe97-LWlUK8"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCoxuXDaHIOMo5exri-Pw_4UoBO4LL4PtA"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 model = genai.GenerativeModel("models/gemini-1.5-pro")
 
