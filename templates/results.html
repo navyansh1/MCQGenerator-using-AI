@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCQ Results</title>
+    <style>
+      /* Reset and Basic Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: darkslategray;
+        background-size: 200% 200%;
+        animation: gradientAnimation 10s ease infinite;
+        color: #333;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      /* Gradient Animation */
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Container */
+      .container {
+        width: 80%;
+        max-width: 700px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+      }
+
+      /* Heading */
+      h1 {
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+      }
+
+      /* MCQ Styling */
+      .mcq {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border: 2px solid gainsboro;
+        border-radius: 8px;
+        transition: background-color 0.3s;
+      }
+      .mcq:hover {
+        background-color: #e2e6ea;
+      }
+
+      /* Question Styling */
+      .question {
+        font-weight: bold;
+        color: rgb(198, 50, 50);
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .options {
+        margin: 10px 0;
+      }
+
+      /* Option Styling */
+      .option {
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #333;
+        border-radius: 5px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .option:hover {
+        background-color: #d1ecf1;
+      }
+
+      /* Correct Answer */
+      .correct-answer {
+        font-weight: bold;
+        color: green;
+        margin-top: 15px;
+        display: none;
+      }
+
+      /* Download Links */
+      .download-links {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .download-links a {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: #006400;
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+      .download-links a:hover {
+        background-color: #004d00;
+      }
+
+      /* Footer Section */
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: white;
+      }
+      .footer a {
+        margin: 0 10px;
+        color: white;
+        font-size: 1.5rem; /* Increase icon size */
+        transition: color 0.3s;
+      }
+      .footer a:hover {
+        color: #0073b1; /* Hover color for icons */
+      }
+      .footer-text {
+        font-weight: bold;
+        font-style: italic;
+        margin-bottom: 10px;
+      }
+      .copyright {
+        margin-top: 15px;
+        font-size: 1rem;
+        color: white;
+      }
+
+      /* Media Query for Mobile Devices */
+      @media (max-width: 600px) {
+        .container {
+          width: 90%;
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .question {
+          font-size: 1rem;
+        }
+
+        .option {
+          font-size: 0.85rem;
+        }
+
+        .download-links a {
+          padding: 10px 15px;
+          font-size: 0.9rem;
+          margin-bottom: 15px;
+        }
+      }
+    </style>
+    <script>
+      // Function to check answer when an option is clicked
+      function checkAnswer(selectedOption, correctAnswer) {
+        const options = selectedOption.parentElement.children;
+
+        // Loop through all options and mark them
+        for (let i = 0; i < options.length; i++) {
+          const option = options[i];
+
+          // If it's the selected option
+          if (option === selectedOption) {
+            if (selectedOption.textContent.trim().startsWith(correctAnswer)) {
+              selectedOption.style.backgroundColor = 'green'; // Correct answer turns green
+              selectedOption.style.color = 'white';
+            } else {
+              selectedOption.style.backgroundColor = 'red'; // Incorrect answer turns red
+              selectedOption.style.color = 'white';
+            }
+          } else {
+            // Highlight the correct answer in green if it's not selected
+            if (option.textContent.trim().startsWith(correctAnswer)) {
+              option.style.backgroundColor = 'green';
+              option.style.color = 'white';
+            }
+          }
+
+          // Disable other options after selection
+          option.style.pointerEvents = 'none';
+        }
+
+        // Show the correct answer below the options
+        const correctOption = selectedOption.parentElement.querySelector('.correct');
+        correctOption.style.display = 'block';
+      }
+    </script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generated MCQs</h1>
+
+      {% for mcq in mcqs.split("## MCQ") %} {% if mcq.strip() %}
+      <div class="mcq">
+        <div class="question">{{ mcq.split('A)')[0].strip() }}</div>
+        <div class="options">
+          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
+            A) {{ mcq.split('A)')[1].split('B)')[0].strip() }}
+          </div>
+          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
+            B) {{ mcq.split('B)')[1].split('C)')[0].strip() }}
+          </div>
+          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
+            C) {{ mcq.split('C)')[1].split('D)')[0].strip() }}
+          </div>
+          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
+            D) {{ mcq.split('D)')[1].split('Correct Answer:')[0].strip() }}
+          </div>
+        </div>
+        <div class="correct-answer">
+          Correct Answer: {{ mcq.split('Correct Answer:')[1].strip() }}
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+
+      <div class="download-links">
+        <a href="/download/{{ txt_filename }}">Download as TXT</a>
+        <a href="/download/{{ pdf_filename }}">Download as PDF</a>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <a href="https://www.linkedin.com/in/navyansh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@navygeeks" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com/navygeeks/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/navyansh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:navycodes@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://navygeeks.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
+      <div class="copyright">&copy; NavyGeeks</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Generator</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: darkslategray;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: whitesmoke;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Heading Styling */
+        h1 {
+            text-align: center;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Input Styling */
+        input[type="file"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* Custom File Input Styling - Light Gray */
+        input[type="file"] {
+            background-color: #d3d3d3;
+            color: black;
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover {
+            background-color: #b0b0b0;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Footer Styling */
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: white;
+            width: 100%;
+        }
+        .footer a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem; /* Increase icon size */
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #0073b1; /* Hover color for icons */
+        }
+        .footer-text {
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .copyright {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Media Query for Smaller Screens */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            label {
+                font-size: 0.9rem;
+            }
+
+            input[type="file"],
+            input[type="number"] {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generate MCQs from Text</h1>
+        <form action="/generate" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload your document (PDF, TXT, DOCX):</label>
+                <input type="file" name="file" required>
+            </div>
+            <div class="form-group">
+                <label for="num_questions">How many questions do you want?</label>
+                <input type="number" name="num_questions" min="1" required>
+            </div>
+            <button type="submit">Generate MCQs</button>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <a href="https://www.linkedin.com/in/navyansh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@navygeeks" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/navygeeks/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/navyansh1" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="mailto:navycodes@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://navygeeks.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
+        <div class="copyright">&copy; NavyGeeks</div>
+    </div>
+</body>
+</html>

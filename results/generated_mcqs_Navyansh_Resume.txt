@@ -1,0 +1,80 @@
+## MCQ 1
+Question: What is Navyansh Kothari's primary email address?
+A) navyansh@gmail.com
+B) navzkot@gmail.com
+C) navyanshkothari@gmail.com
+D) navygeeks@gmail.com
+Correct Answer: B
+
+## MCQ 2
+Question: What role did Navyansh hold at Ethnus CodeMithra?
+A) iOS App Developer
+B) Full Stack MERN Web Developer
+C) Content Creator
+D) Social Media Head
+Correct Answer: B
+
+## MCQ 3
+Question: What is the name of Navyansh's tech YouTube channel?
+A) Tech Insights
+B) NavyGeeks
+C) CodeMithra
+D) VIT Chennai Tech
+Correct Answer: B
+
+## MCQ 4
+Question: Which programming language did Navyansh NOT list in his technical skills?
+A) Python
+B) Cpp
+C) Java
+D) Swift UI
+Correct Answer: C
+
+## MCQ 5
+Question:  What was Navyansh's CGPA at Vellore Institute of Technology?
+A) 9.48
+B) 8.17
+C) 9.02
+D) Not mentioned
+Correct Answer: B
+
+## MCQ 6
+Question:  Which cloud platform certifications does Navyansh possess?
+A) AWS Certified Cloud Practitioner and Google Cloud Computing Foundational
+B) Microsoft Azure Fundamentals and Google Cloud Computing Foundational
+C) AWS Certified Solutions Architect and Microsoft Azure Fundamentals
+D) Only AWS Certified Cloud Practitioner
+Correct Answer: A
+
+## MCQ 7
+Question: Which software did Navyansh use for video editing?
+A) Adobe Premiere Pro
+B) Final Cut Pro
+C) iMovie
+D) DaVinci Resolve
+Correct Answer: B
+
+## MCQ 8
+Question: What game did Navyansh develop for iOS?
+A) Tic Tac Toe
+B) Solitaire
+C) Playing Cards
+D) Chess
+Correct Answer: C
+
+
+## MCQ 9
+Question:  What technology did Navyansh use for the NFT-Integrated Blockchain Lottery System project?
+A) Python and ReactJS
+B) Solidity and ReactJS
+C) Java and Solidity
+D) C++ and React Native
+Correct Answer: B
+
+## MCQ 10
+Question: In which subject did Navyansh top his school in Class XII?
+A) Mathematics
+B) Chemistry
+C) Physics
+D) Computer Science
+Correct Answer: C
