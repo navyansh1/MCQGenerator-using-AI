@@ -123,6 +123,43 @@
             color: white;
         }
 
+        /* Loading Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #28a745;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        #loading-time {
+            color: white;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
         /* Media Query for Smaller Screens */
         @media (max-width: 600px) {
             .container {
@@ -162,11 +199,18 @@
                 <input type="file" name="file" required>
             </div>
             <div class="form-group">
-                <label for="num_questions">How many questions? (Max: 5 at once)</label>
-                <input type="number" name="num_questions" min="1" required>
+                <label for="num_questions">How many questions? (Max: 10 at once)</label>
+                <input type="number" name="num_questions" min="1" max="10" value="5" required>
             </div>
             <button type="submit">Generate MCQs</button>
         </form>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Generating MCQs, please wait...</p>
+        <p id="loading-time">0s</p>
     </div>
 
     <!-- Footer Section -->
@@ -179,5 +223,25 @@
         <a href="https://navygeeks.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
         <div class="copyright">&copy; NavyGeeks</div>
     </div>
+
+    <script>
+        // Loading animation timer
+        let loadingSeconds = 0;
+        let loadingTimer;
+        
+        document.querySelector('form').addEventListener('submit', function() {
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';
+            
+            // Start timer
+            loadingTimer = setInterval(function() {
+                loadingSeconds++;
+                document.getElementById('loading-time').textContent = loadingSeconds + 's';
+            }, 1000);
+            
+            return true; // Continue with form submission
+        });
+    </script>
 </body>
 </html>
