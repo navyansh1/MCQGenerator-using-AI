@@ -4,130 +4,260 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCQ Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Reset */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+        
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        /* Body Styling */
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: darkslategray;
-            color: #fff;
+            font-family: "Poppins", sans-serif;
+            color: white;
+            background: linear-gradient(45deg, #d09530, #164284, #a0522d, #0a305c, #d09530);
+            background-size: 400% 400%;
+            animation: gradientBackground 8s ease infinite;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             padding: 20px;
-            flex-direction: column;
-            overflow: hidden;
+            position: relative;
+            overflow-x: hidden;
         }
-
+        
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        /* Background Elements */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        .bg-shape-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(208, 149, 48, 0.5);
+            top: 10%;
+            left: 20%;
+            animation: floatShape 25s infinite alternate ease-in-out;
+        }
+        
+        .bg-shape-2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(22, 66, 132, 0.6);
+            bottom: 20%;
+            right: 10%;
+            animation: floatShape 18s infinite alternate-reverse ease-in-out;
+        }
+        
+        .bg-shape-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(160, 82, 45, 0.4);
+            bottom: 20%;
+            left: 10%;
+            animation: floatShape 22s infinite alternate ease-in-out;
+        }
+        
+        @keyframes floatShape {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(100px, 50px) scale(1.2);
+            }
+            100% {
+                transform: translate(50px, 100px) scale(0.8);
+            }
+        }
+        
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+            animation: float 15s infinite linear;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.85; }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0.85; }
+        }
+        
         /* Container Styling */
         .container {
             width: 100%;
             max-width: 600px;
-            background: whitesmoke;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-height: 90vh;
-            overflow-y: auto;
-            margin-bottom: 150px; /* Spacing between container and footer */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 100px;
+            animation: fadeIn 1s ease;
         }
-
+        
         /* Heading Styling */
         h1 {
             text-align: center;
-            color: #333;
+            color: white;
             font-weight: 700;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
-
+        
         /* Form Group Styling */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease;
         }
-
+        
         label {
-            font-weight: bold;
-            color: #555;
-            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
         }
-
+        
         /* Input Styling */
         input[type="file"],
         input[type="number"] {
             width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
             outline: none;
             font-size: 1rem;
-        }
-
-        /* Custom File Input Styling - Light Gray */
-        input[type="file"] {
-            background-color: #d3d3d3;
-            color: black;
+            color: white;
+            font-family: "Poppins", sans-serif;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
-
-        input[type="file"]:hover {
-            background-color: #b0b0b0;
+        
+        input[type="file"]:hover,
+        input[type="number"]:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
-
+        
+        input[type="file"]::file-selector-button {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #164284;
+            color: white;
+            border: none;
+            margin-right: 15px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        input[type="file"]::file-selector-button:hover {
+            background: #0a305c;
+        }
+        
+        input[type="number"] {
+            color: white;
+        }
+        
+        input[type="number"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
         /* Button Styling */
         button {
             width: 100%;
-            background-color: #28a745;
-            color: #fff;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-family: "Poppins", sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            animation: bounceIn 1s ease 0.5s both;
         }
-
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.05), 
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.8),
+                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.05),
+                transparent);
+            transform: rotate(45deg);
+            pointer-events: none;
+            z-index: 1;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
         button:hover {
-            background-color: #218838;
+            background: rgba(22, 66, 132, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-
-        /* Footer Styling */
-        .footer {
-            margin-top: 10px;
-            text-align: center;
-            font-size: 1.2rem;
-            color: white;
-            width: 100%;
+        
+        button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }
-        .footer a {
-            margin: 0 10px;
-            color: white;
-            font-size: 1.5rem; /* Increase icon size */
-            transition: color 0.3s;
-        }
-        .footer a:hover {
-            color: #0073b1; /* Hover color for icons */
-        }
-        .copyright {
-            margin-top: 15px;
-            font-size: 1rem;
-            color: white;
-        }
-
+        
         /* Loading Animation */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         #loading-overlay {
             display: none;
             position: fixed;
@@ -135,74 +265,161 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
+        
         .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #28a745;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+            padding: 3px;
+            background: conic-gradient(from 0deg, #164284, #d09530);
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff 0);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff 0);
+            animation: rotate 2s linear infinite;
         }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
         .loading-text {
             color: white;
             margin-top: 20px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 500;
         }
+        
         #loading-time {
-            color: white;
+            color: #d09530;
             margin-top: 10px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
-
+        
+        /* Footer Section */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-block;
+        }
+        
+        .footer a:hover {
+            color: #d09530;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% { transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+            0% { opacity: 0; transform: scale3d(.3, .3, .3); }
+            20% { transform: scale3d(1.1, 1.1, 1.1); }
+            40% { transform: scale3d(.9, .9, .9); }
+            60% { opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+            80% { transform: scale3d(.97, .97, .97); }
+            100% { opacity: 1; transform: scale3d(1, 1, 1); }
+        }
+        
         /* Media Query for Smaller Screens */
         @media (max-width: 600px) {
             .container {
-                padding: 15px;
+                padding: 20px;
             }
-
+            
             h1 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
-
+            
             label {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
-
+            
             input[type="file"],
             input[type="number"] {
                 padding: 10px;
                 font-size: 0.9rem;
             }
-
+            
+            input[type="file"]::file-selector-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
             button {
-                padding: 10px;
-                font-size: 0.9rem;
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .footer a {
+                font-size: 1.3rem;
+                margin: 0 8px;
             }
         }
     </style>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Generate MCQs from Text</h1>
+    <!-- Background animated shapes -->
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <div class="bg-shape bg-shape-3"></div>
+    
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container animate__animated animate__fadeIn">
+        <h1 class="animate__animated animate__fadeInDown">Generate MCQs from Text</h1>
+        
         <form action="/generate" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
+            <div class="form-group animate__animated animate__fadeInUp animate__delay-1s">
                 <label for="file">Upload your document (PDF, TXT, DOCX):</label>
-                <input type="file" name="file" required>
+                <input type="file" name="file" id="file" required>
             </div>
-            <div class="form-group">
+            
+            <div class="form-group animate__animated animate__fadeInUp animate__delay-2s">
                 <label for="num_questions">How many questions? (Max: 10 at once)</label>
-                <input type="number" name="num_questions" min="1" max="10" value="5" required>
+                <input type="number" name="num_questions" id="num_questions" min="1" max="10" value="5" required>
             </div>
-            <button type="submit">Generate MCQs</button>
+            
+            <button type="submit" class="animate__animated animate__bounceIn animate__delay-3s">
+                <i class="fas fa-magic"></i> Generate MCQs
+            </button>
         </form>
     </div>
 
@@ -215,32 +432,109 @@
 
     <!-- Footer Section -->
     <div class="footer">
-        <a href="https://www.linkedin.com/in/navyansh/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@navygeeks" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/navygeeks/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/navyansh1" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="mailto:navycodes@gmail.com"><i class="fas fa-envelope"></i></a>
-        <a href="https://navygeeks.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
-        <div class="copyright">&copy; NavyGeeks</div>
+        <a href="https://www.linkedin.com/in/navyansh/" target="_blank" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://www.youtube.com/@navygeeks" target="_blank" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/navygeeks/" target="_blank" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://github.com/navyansh1" target="_blank" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="mailto:navycodes@gmail.com" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://navygeeks.in/" target="_blank" class="animate__animated animate__fadeIn animate__delay-3s">
+            <i class="fas fa-globe"></i>
+        </a>
+        <div class="copyright animate__animated animate__fadeIn animate__delay-4s">&copy; NavyGeeks</div>
     </div>
 
     <script>
+        // Create floating particles/bubbles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 35;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `${-posY}%`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                // Gold or blue tinted bubbles
+                if (Math.random() > 0.5) {
+                    particle.style.background = 'rgba(208, 149, 48, 0.6)';
+                    particle.style.boxShadow = '0 0 15px rgba(208, 149, 48, 0.8), 0 0 30px rgba(208, 149, 48, 0.4)';
+                } else {
+                    particle.style.background = 'rgba(22, 66, 132, 0.6)';
+                    particle.style.boxShadow = '0 0 15px rgba(22, 66, 132, 0.8), 0 0 30px rgba(22, 66, 132, 0.4)';
+                }
+                
+                // Some particles are white
+                if (Math.random() > 0.8) {
+                    particle.style.background = 'rgba(255, 255, 255, 0.8)';
+                    particle.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.5)';
+                }
+                
+                // Animation duration
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Animation delay
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
         // Loading animation timer
         let loadingSeconds = 0;
         let loadingTimer;
         
-        document.querySelector('form').addEventListener('submit', function() {
-            // Show loading overlay
-            const loadingOverlay = document.getElementById('loading-overlay');
-            loadingOverlay.style.display = 'flex';
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
             
-            // Start timer
-            loadingTimer = setInterval(function() {
-                loadingSeconds++;
-                document.getElementById('loading-time').textContent = loadingSeconds + 's';
-            }, 1000);
+            // Form submission with animation
+            document.querySelector('form').addEventListener('submit', function() {
+                // Show loading overlay
+                const loadingOverlay = document.getElementById('loading-overlay');
+                loadingOverlay.style.display = 'flex';
+                
+                // Start timer
+                loadingTimer = setInterval(function() {
+                    loadingSeconds++;
+                    document.getElementById('loading-time').textContent = loadingSeconds + 's';
+                }, 1000);
+                
+                return true;
+            });
             
-            return true; // Continue with form submission
+            // Add hover animation for button
+            const submitButton = document.querySelector('button');
+            submitButton.addEventListener('mouseenter', function() {
+                this.classList.add('animate__animated', 'animate__pulse');
+            });
+            
+            submitButton.addEventListener('mouseleave', function() {
+                this.classList.remove('animate__animated', 'animate__pulse');
+            });
         });
     </script>
 </body>
