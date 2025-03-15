@@ -1,262 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCQ Results</title>
-    <style>
-      /* Reset and Basic Styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        background: darkslategray;
-        background-size: 200% 200%;
-        animation: gradientAnimation 10s ease infinite;
-        color: #333;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        flex-direction: column;
-      }
-
-      /* Gradient Animation */
-      @keyframes gradientAnimation {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-      /* Container */
-      .container {
-        width: 80%;
-        max-width: 700px;
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        box-sizing: border-box;
-      }
-
-      /* Heading */
-      h1 {
-        text-align: center;
-        color: #333;
-        font-weight: bold;
-        font-size: 1.8rem;
-        margin-bottom: 25px;
-      }
-
-      /* MCQ Styling */
-      .mcq {
-        margin-bottom: 20px;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border: 2px solid gainsboro;
-        border-radius: 8px;
-        transition: background-color 0.3s;
-      }
-      .mcq:hover {
-        background-color: #e2e6ea;
-      }
-
-      /* Question Styling */
-      .question {
-        font-weight: bold;
-        color: rgb(198, 50, 50);
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-      }
-
-      .options {
-        margin: 10px 0;
-      }
-
-      /* Option Styling */
-      .option {
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid #333;
-        border-radius: 5px;
-        font-size: 0.95rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      .option:hover {
-        background-color: #d1ecf1;
-      }
-
-      /* Correct Answer */
-      .correct-answer {
-        font-weight: bold;
-        color: green;
-        margin-top: 15px;
-        display: none;
-      }
-
-      /* Download Links */
-      .download-links {
-        text-align: center;
-        margin-top: 30px;
-      }
-      .download-links a {
-        display: inline-block;
-        padding: 12px 20px;
-        background-color: #006400;
-        color: white;
-        text-decoration: none;
-        margin: 0 15px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-      }
-      .download-links a:hover {
-        background-color: #004d00;
-      }
-
-      /* Footer Section */
-      .footer {
-        margin-top: 40px;
-        text-align: center;
-        font-size: 1.2rem;
-        color: white;
-      }
-      .footer a {
-        margin: 0 10px;
-        color: white;
-        font-size: 1.5rem; /* Increase icon size */
-        transition: color 0.3s;
-      }
-      .footer a:hover {
-        color: #0073b1; /* Hover color for icons */
-      }
-      .footer-text {
-        font-weight: bold;
-        font-style: italic;
-        margin-bottom: 10px;
-      }
-      .copyright {
-        margin-top: 15px;
-        font-size: 1rem;
-        color: white;
-      }
-
-      /* Media Query for Mobile Devices */
-      @media (max-width: 600px) {
-        .container {
-          width: 90%;
-          padding: 20px;
-        }
-
-        h1 {
-          font-size: 1.5rem;
-        }
-
-        .question {
-          font-size: 1rem;
-        }
-
-        .option {
-          font-size: 0.85rem;
-        }
-
-        .download-links a {
-          padding: 10px 15px;
-          font-size: 0.9rem;
-          margin-bottom: 15px;
-        }
-      }
-    </style>
-    <script>
-      // Function to check answer when an option is clicked
-      function checkAnswer(selectedOption, correctAnswer) {
-        const options = selectedOption.parentElement.children;
-
-        // Loop through all options and mark them
-        for (let i = 0; i < options.length; i++) {
-          const option = options[i];
-
-          // If it's the selected option
-          if (option === selectedOption) {
-            if (selectedOption.textContent.trim().startsWith(correctAnswer)) {
-              selectedOption.style.backgroundColor = 'green'; // Correct answer turns green
-              selectedOption.style.color = 'white';
-            } else {
-              selectedOption.style.backgroundColor = 'red'; // Incorrect answer turns red
-              selectedOption.style.color = 'white';
-            }
-          } else {
-            // Highlight the correct answer in green if it's not selected
-            if (option.textContent.trim().startsWith(correctAnswer)) {
-              option.style.backgroundColor = 'green';
-              option.style.color = 'white';
-            }
-          }
-
-          // Disable other options after selection
-          option.style.pointerEvents = 'none';
-        }
-
-        // Show the correct answer below the options
-        const correctOption = selectedOption.parentElement.querySelector('.correct');
-        correctOption.style.display = 'block';
-      }
-    </script>
-    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Generated MCQs</h1>
-
-      {% for mcq in mcqs.split("## MCQ") %} {% if mcq.strip() %}
-      <div class="mcq">
-        <div class="question">{{ mcq.split('A)')[0].strip() }}</div>
-        <div class="options">
-          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
-            A) {{ mcq.split('A)')[1].split('B)')[0].strip() }}
-          </div>
-          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
-            B) {{ mcq.split('B)')[1].split('C)')[0].strip() }}
-          </div>
-          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
-            C) {{ mcq.split('C)')[1].split('D)')[0].strip() }}
-          </div>
-          <div class="option" onclick="checkAnswer(this, '{{ mcq.split('Correct Answer:')[1].strip() }}')">
-            D) {{ mcq.split('D)')[1].split('Correct Answer:')[0].strip() }}
-          </div>
-        </div>
-        <div class="correct-answer">
-          Correct Answer: {{ mcq.split('Correct Answer:')[1].strip() }}
-        </div>
-      </div>
-      {% endif %} {% endfor %}
-
-      <div class="download-links">
-        <a href="/download/{{ txt_filename }}">Download as TXT</a>
-        <a href="/download/{{ pdf_filename }}">Download as PDF</a>
-      </div>
-    </div>
-
-    <!-- Footer Section -->
-    <div class="footer">
-      <a href="https://www.linkedin.com/in/navyansh/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.youtube.com/@navygeeks" target="_blank"><i class="fab fa-youtube"></i></a>
-      <a href="https://www.instagram.com/navygeeks/" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://github.com/navyansh1" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="mailto:navycodes@gmail.com"><i class="fas fa-envelope"></i></a>
-      <a href="https://navygeeks.vercel.app/" target="_blank"><i class="fas fa-globe"></i></a>
-      <div class="copyright">&copy; NavyGeeks</div>
-    </div>
-  </body>
-</html>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Poppins", sans-serif;
+            color: white;
+            background: linear-gradient(45deg, #d09530, #164284, #a0522d, #0a305c, #d09530);
+            background-size: 400% 400%;
+            animation: gradientBackground 8s ease infinite;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        /* Background Elements */
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        .bg-shape-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(208, 149, 48, 0.5);
+            top: 10%;
+            left: 20%;
+            animation: floatShape 25s infinite alternate ease-in-out;
+        }
+        
+        .bg-shape-2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(22, 66, 132, 0.6);
+            bottom: 20%;
+            right: 10%;
+            animation: floatShape 18s infinite alternate-reverse ease-in-out;
+        }
+        
+        .bg-shape-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(160, 82, 45, 0.4);
+            bottom: 20%;
+            left: 10%;
+            animation: floatShape 22s infinite alternate ease-in-out;
+        }
+        
+        @keyframes floatShape {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(100px, 50px) scale(1.2);
+            }
+            100% {
+                transform: translate(50px, 100px) scale(0.8);
+            }
+        }
+        
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+            animation: float 15s infinite linear;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.85; }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0.85; }
+        }
+        
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 100px;
+            animation: fadeIn 1s ease;
+        }
+        
+        /* Heading */
+        h1 {
+            text-align: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* MCQ Styling */
+        .mcq {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mcq:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Question Styling */
+        .question {
+            font-weight: 600;
+            color: #d09530;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        /* Option Styling */
+        .option {
+            padding: 12px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #d09530;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .option:hover:before {
+            transform: scaleY(1);
+        }
+        
+        .option-icon {
+            margin-right: 8px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .option:hover .option-icon {
+            opacity: 1;
+        }
+        
+        /* Correct/Incorrect Styling */
+        .option.correct {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+        }
+        
+        .option.correct .option-icon {
+            color: #4CAF50;
+            opacity: 1;
+        }
+        
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #F44336;
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
+        }
+        
+        .option.incorrect .option-icon {
+            color: #F44336;
+            opacity: 1;
+        }
+        
+        /* Correct Answer */
+        .correct-answer {
+            font-weight: 600;
+            color: #4CAF50;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #4CAF50;
+            display: none;
+        }
+        
+        /* Download Links */
+        .download-links {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .download-links a {
+            display: inline-block;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            margin: 0 10px 15px;
+            border-radius: 15px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-links a::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.05), 
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.8),
+                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.05),
+                transparent);
+            transform: rotate(45deg);
+            pointer-events: none;
+            z-index: 1;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .download-links a:hover {
+            background: rgba(22, 66, 132, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-links a i {
+            margin-right: 10px;
+        }
+        
+        /* Footer Section */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-block;
+        }
+        
+        .footer a:hover {
+            color: #d09530;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Media Query for Mobile Devices */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+            
+            .download-links a {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 200px;
+            }
+            
+            .footer a {
+                font-size: 1.3rem;
+                margin: 0 8px;
+            }
+        }
