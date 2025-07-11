@@ -7,9 +7,9 @@ import google.generativeai as genai
 from fpdf import FPDF
 
 # Set your API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCoxuXDaHIOMo5exri-Pw_4UoBO4LL4PtA"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCbYXPcV7W1Ho8BhEuHjddwC9TzX3OZWoI"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-model = genai.GenerativeModel("models/gemini-1.5-pro")
+model = genai.GenerativeModel("models/gemini-1.5-flash")
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/tmp/'  # Using /tmp for Vercel deployment
