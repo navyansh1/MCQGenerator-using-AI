@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import google.generativeai as genai
 from fpdf import FPDF
 
+#checking 
 # Set your API key
 os.environ["GOOGLE_API_KEY"] = "AIzaSyCbYXPcV7W1Ho8BhEuHjddwC9TzX3OZWoI"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
